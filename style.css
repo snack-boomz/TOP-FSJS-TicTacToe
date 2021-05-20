@@ -1,0 +1,207 @@
+h1, h2, h3, h4, h5, h6, p {
+    font-family: Calibri, sans-serif;
+}
+
+body {
+    text-align: center;
+    padding: 16px;
+    margin: 16px;
+}
+
+.top:hover {
+    color: #ed9121;
+    transition-duration: 0.1s;
+    
+}
+
+.top-sub:hover {
+    color: forestgreen;
+    transition-duration: 0.1s;
+}
+
+h1 {
+    font-size: 36px;
+    color: black;
+}
+
+h3 {
+    font-size: 18px;
+    color: gray;
+}
+
+h5 {
+    padding: 10px;
+    margin: 10px;
+}
+
+section {
+    display: block;
+    float: left;
+    width: 100%;
+    padding: 24px 0px;
+    margin: 18px auto;
+}
+
+button {
+    border-radius: 4px;
+    box-shadow: 2px 2px lightgray;    
+}
+
+button i {
+    font-size: 24px;
+}
+
+
+button strong {
+    margin-bottom: 5px;
+    display: inline-block;
+    font-weight: bold;
+}
+
+button .fa-play {
+    padding-right: 10px;
+    font-size: 14px;
+}
+
+#play-area {
+    height: 1100px;
+    border: 1px solid black;
+}
+
+#calculator-container {
+    display: grid;
+    height: 450px;
+    width: 35%;
+    padding: 20px;
+    margin: auto;
+    border: 2px solid gray;
+
+    grid-template-areas: 'calculator-display calculator-display calculator-display calculator-display'
+                         'button-seven button-eight button-nine button-divide'
+                         'button-four button-five button-six button-multiply'
+                         'button-one button-two button-three button-subtract'
+                         'button-zero button-decimal button-equal button-add'
+                         'button-backspace button-backspace button-backspace button-backspace'
+                         'button-clear button-clear button-clear button-clear';
+
+    grid-gap: 5px;
+
+}
+
+/* Grid areas */
+
+#calculator-display {
+    grid-area: calculator-display;
+}
+
+
+#button-seven {
+    grid-area: button-seven;
+}
+
+#button-eight {
+    grid-area: button-eight;
+}
+
+#button-nine {
+    grid-area: button-nine;
+}
+
+#button-divide {
+    grid-area: button-divide;
+}
+
+#button-four {
+    grid-area: button-four;
+}
+
+#button-five {
+    grid-area: button-five;
+}
+
+#button-six {
+    grid-area: button-six;
+}
+
+#button-multiply {
+    grid-area: button-multiply;
+}
+
+#button-one {
+    grid-area: button-one;
+}
+
+#button-two {
+    grid-area: button-two;
+}
+
+#button-three {
+    grid-area: button-three;
+}
+
+#button-subtract {
+    grid-area: button-subtract;
+}
+
+#button-zero {
+    grid-area: button-zero;
+}
+
+#button-decimal {
+    grid-area: button-decimal;
+}
+
+#button-equal {
+    grid-area: button-equal;
+}
+
+#button-add {
+    grid-area: button-add;
+}
+
+#button-backspace {
+    grid-area: button-backspace;
+}
+
+#button-clear {
+    grid-area: button-clear;
+}
+
+#calculator-container > .calculator-display {
+    border: 1px solid black;
+    background: lightgray;
+    padding: 24px;
+    margin-bottom: 10px;
+    font-family: Calibri, sans-serif;
+
+}
+
+#calculator-display > p {
+    float: right;
+    font-size: 24px;
+}
+
+#calculator-container > .calculator-button {
+    background: lightgray;
+    font-size: 32px;
+    font-family: 'Pinyon Script', cursive;
+    font-weight: bold;
+    padding-top: 10px;
+}
+
+#calculator-container > .calculator-button:hover {
+    background: gray;
+    transition-duration: 0.1s;
+}
+
+#calculator-container > .calculator-button-expression {
+    color: darkred;
+}
+
+.cover {
+    background: #333333 !important;
+}
+
+.phase-out {
+    pointer-events: none;
+}
