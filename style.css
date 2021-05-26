@@ -1,5 +1,5 @@
 h1, h2, h3, h4, h5, h6, p {
-    font-family: Calibri, sans-serif;
+    font-family: 'Roboto Condensed', sans-serif;
 }
 
 body {
@@ -65,10 +65,9 @@ button .fa-play {
 
 #play-area {
     height: 1100px;
-    border: 1px solid black;
 }
 
-#calculator-container {
+#tictactoe-container {
     display: grid;
     height: 450px;
     width: 35%;
@@ -76,13 +75,11 @@ button .fa-play {
     margin: auto;
     border: 2px solid gray;
 
-    grid-template-areas: 'calculator-display calculator-display calculator-display calculator-display'
-                         'button-seven button-eight button-nine button-divide'
-                         'button-four button-five button-six button-multiply'
-                         'button-one button-two button-three button-subtract'
-                         'button-zero button-decimal button-equal button-add'
-                         'button-backspace button-backspace button-backspace button-backspace'
-                         'button-clear button-clear button-clear button-clear';
+    grid-template-areas: 'top-left top-middle top-right'
+                         'middle-left middle-middle middle-right'
+                         'bottom-left bottom-bottom bottom-right';
+    grid-template-columns: repeat(3, 1fr);
+    grid-template-rows: repeat(3, 1fr);
 
     grid-gap: 5px;
 
@@ -90,81 +87,41 @@ button .fa-play {
 
 /* Grid areas */
 
-#calculator-display {
-    grid-area: calculator-display;
+
+#top-left {
+    grid-area: top-left;
 }
 
-
-#button-seven {
-    grid-area: button-seven;
+#top-middle {
+    grid-area: top-middle;
 }
 
-#button-eight {
-    grid-area: button-eight;
+#top-right {
+    grid-area: top-right;
 }
 
-#button-nine {
-    grid-area: button-nine;
+#middle-left {
+    grid-area: middle-left;
 }
 
-#button-divide {
-    grid-area: button-divide;
+#middle-middle {
+    grid-area: middle-middle;
 }
 
-#button-four {
-    grid-area: button-four;
+#middle-right {
+    grid-area: middle-right;
 }
 
-#button-five {
-    grid-area: button-five;
+#bottom-left {
+    grid-area: bottom-left;
 }
 
-#button-six {
-    grid-area: button-six;
+#bottom-bottom {
+    grid-area: bottom-bottom;
 }
 
-#button-multiply {
-    grid-area: button-multiply;
-}
-
-#button-one {
-    grid-area: button-one;
-}
-
-#button-two {
-    grid-area: button-two;
-}
-
-#button-three {
-    grid-area: button-three;
-}
-
-#button-subtract {
-    grid-area: button-subtract;
-}
-
-#button-zero {
-    grid-area: button-zero;
-}
-
-#button-decimal {
-    grid-area: button-decimal;
-}
-
-#button-equal {
-    grid-area: button-equal;
-}
-
-#button-add {
-    grid-area: button-add;
-}
-
-#button-backspace {
-    grid-area: button-backspace;
-}
-
-#button-clear {
-    grid-area: button-clear;
+#bottom-right {
+    grid-area: bottom-right;
 }
 
 #calculator-container > .calculator-display {
@@ -176,18 +133,22 @@ button .fa-play {
 
 }
 
-#calculator-display > p {
-    float: right;
-    font-size: 24px;
+
+#tictactoe-container > div {
+    background: lightgray;
+    font-size: 100px;
+    font-family: 'Roboto Condensed', sans-serif;
+    font-weight: bold;
+    padding-top: 25px;
+
 }
 
-#calculator-container > .calculator-button {
-    background: lightgray;
-    font-size: 32px;
-    font-family: 'Pinyon Script', cursive;
-    font-weight: bold;
-    padding-top: 10px;
+#tictactoe-container > div:hover {
+    background: #ed9121;
+    transition-duration: 0.1s;
+
 }
+
 
 #calculator-container > .calculator-button:hover {
     background: gray;
