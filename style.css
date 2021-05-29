@@ -35,9 +35,6 @@ h5 {
 }
 
 section {
-    display: block;
-    float: left;
-    width: 100%;
     padding: 24px 0px;
     margin: 18px auto;
 }
@@ -65,7 +62,36 @@ button .fa-play {
 
 #play-area {
     height: 1100px;
+    width: 80%;
+
 }
+
+#play-area > div {
+    width: 32.27%;
+    float: left;
+}
+
+#player-one-form > input {
+    margin: 30px;
+    padding: 5px 20px;
+}
+
+#player-one-name-display {
+    color: #ed9121;
+    font-size: 36px;
+    
+}
+
+#player-two-name-display {
+    color: forestgreen;
+    font-size: 36px;
+}
+
+#player-two-form > input {
+    margin: 30px;
+    padding: 5px 20px;
+}
+
 
 #tictactoe-container {
     display: grid;
@@ -149,20 +175,32 @@ button .fa-play {
 
 }
 
-
-#calculator-container > .calculator-button:hover {
-    background: gray;
-    transition-duration: 0.1s;
+#player-turn-display {
+    width: 100% !important;
+    padding-bottom: 50px;
 }
 
-#calculator-container > .calculator-button-expression {
-    color: darkred;
+#player-turn-display-content {
+    height: 35px;
 }
 
+.player-one {
+    color: #ed9121;
+    font-size: 36px;
+}
+
+.player-two {
+    color: forestgreen;
+    font-size: 36px;
+}
 .cover {
     background: #333333 !important;
 }
 
 .phase-out {
     pointer-events: none;
+}
+
+.hide {
+    display: none;
 }

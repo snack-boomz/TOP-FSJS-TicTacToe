@@ -10,6 +10,7 @@
         <title>TOP | Tic-Tac-Toe</title>
         <meta name="description" content="">
         <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico">
         <link rel="stylesheet" href="cssreset.css" TYPE="text/css">
         <link rel="stylesheet" href="style.css" TYPE="text/css">
         <link rel="preconnect" href="https://fonts.gstatic.com">
@@ -25,7 +26,16 @@
             <h3 class="top-sub">Tic-Tac-Toe</h3>
 
         <section id="play-area">
-            <div id="tictactoe-container">
+            <div id="player-turn-display">
+                <h2 id="player-turn-display-content"></h2>
+            </div>
+            <div id="player-one-form">
+                <h3 id="player-one-header">Player 1</h3>
+                <h3 id="player-one-name-display" class="hide"></h3>
+                <input type="text" id="player-one-name" name="Player Name" placeholder="Enter Name Here"><br>
+                <button id="submit-player-one-name"><strong>Submit</strong></button>
+            </div>
+            <div id="tictactoe-container" class="phase-out cover">
                 <div id="top-left"></div>
                 <div id="top-middle"></div>
                 <div id="top-right"></div>
@@ -35,6 +45,12 @@
                 <div id="bottom-left"></div>
                 <div id="bottom-bottom"></div>
                 <div id="bottom-right"></div>
+            </div>
+            <div id="player-two-form">
+                <h3 id="player-two-header">Player 2</h3>
+                <h3 id="player-two-name-display" class="hide"></h3>
+                <input type="text" id="player-two-name" name="Player Name" placeholder="Enter Name Here"><br>
+                <button id="submit-player-two-name"><strong>Submit</strong></button>
             </div>
         </section>
         <script src=script.js></script>

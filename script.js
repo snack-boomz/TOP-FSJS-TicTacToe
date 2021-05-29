@@ -7,6 +7,7 @@ const gameBoard = (() => {
     const grabBoard = () => {
         return board;
     }
+
     const grabElement = (element) => {
         return board[element];
     }
@@ -63,6 +64,71 @@ const displayController = (() => {
         }
     }
 
+    const displayPlayerTurn = () => {
+        const playerTurnDisplay = document.getElementById('player-turn-display');
+        
+        if (gameBoard.getPlayerTurn() == 'X') {
+            const placeholder = document.querySelector(`#player-turn-display-content`);
+            const content = document.createElement('h2');
+            content.textContent = `Player Turn: ${playerOne.name}`
+
+            // reset class
+            content.classList.remove('player-one');
+            content.classList.remove('player-two');
+
+            content.classList.add('player-one')
+            console.log(content);
+
+            // remove original placeholder if hasn't been removed already
+            if (placeholder !== null) {
+                placeholder.remove();
+            }
+            // remove previous player turn display if exists
+            if (playerTurnDisplay.lastElementChild !== null) {
+                playerTurnDisplay.lastElementChild.remove();
+            }
+            
+            playerTurnDisplay.appendChild(content);
+        } else if (gameBoard.getPlayerTurn() == 'O') {
+            const placeholder = document.querySelector(`#player-turn-display-content`);
+            const content = document.createElement('h2');
+            content.textContent = `Player Turn: ${playerTwo.name}`
+
+            // reset class
+            content.classList.remove('player-one');
+            content.classList.remove('player-two');
+
+            content.classList.add('player-two')
+
+            // remove original placeholder if hasn't been removed already
+            if (placeholder !== null) {
+                placeholder.remove();
+            }
+
+            // remove previous player turn display if exists
+            if (playerTurnDisplay.lastElementChild !== null) {
+                playerTurnDisplay.lastElementChild.remove();
+            }
+
+            console.log(content);
+            playerTurnDisplay.appendChild(content);
+        }
+        
+    }
+    const playerOneHeader = document.getElementById('player-one-header');
+    const playerOneInput = document.getElementById('player-one-name');
+    const playerOneSubmit = document.getElementById('submit-player-one-name');
+    const playerOneForm = document.getElementById('player-one-form'); 
+    const playerOneNameDisplay = document.getElementById('player-one-name-display')
+    
+    const playerTwoHeader = document.getElementById('player-two-header');
+    const playerTwoInput = document.getElementById('player-two-name');
+    const playerTwoSubmit = document.getElementById('submit-player-two-name');
+    const playerTwoForm = document.getElementById('player-two-form'); 
+    const playerTwoNameDisplay = document.getElementById('player-two-name-display')
+    
+    const ticTacToeGrid = document.getElementById('tictactoe-container');
+
     const topLeft = document.getElementById('top-left');
     const topMiddle = document.getElementById('top-middle');
     const topRight = document.getElementById('top-right');
@@ -72,6 +138,56 @@ const displayController = (() => {
     const bottomLeft = document.getElementById('bottom-left');
     const bottomBottom = document.getElementById('bottom-bottom');
     const bottomRight = document.getElementById('bottom-right');
+
+    playerOneSubmit.addEventListener('click', () => {
+        playerOneHeader.classList.toggle('hide');
+        playerOneInput.classList.toggle('hide');
+        playerOneSubmit.classList.toggle('hide');
+        const name = document.createElement('strong');
+        const formContent = document.getElementById('player-one-name').value;
+        name.textContent = `${formContent}`
+        playerOneNameDisplay.appendChild(name);
+        playerOneNameDisplay.classList.toggle('hide');
+        const playerTwoNameDisplayContent = playerTwoNameDisplay.innerText;
+        console.log(`playerTwoNameDisplayContent: ${playerTwoNameDisplayContent}`);
+ 
+        playerOne = playerFactory(`${formContent}`)
+        console.log(`Player One: ${playerOne.name}`) 
+        gameBoard.addPlayer(playerOne);
+
+        if (playerTwoNameDisplayContent !== "") { 
+            ticTacToeGrid.classList.remove('cover');
+            ticTacToeGrid.classList.remove('phase-out'); 
+            displayController.displayPlayerTurn();
+        }
+
+
+    });
+
+    playerTwoSubmit.addEventListener('click', () => {
+        playerTwoHeader.classList.toggle('hide');
+        playerTwoInput.classList.toggle('hide');
+        playerTwoSubmit.classList.toggle('hide');
+        const name = document.createElement('strong');
+        const formContent = document.getElementById('player-two-name').value;
+        name.textContent = `${formContent}`
+        playerTwoNameDisplay.appendChild(name);
+        playerTwoNameDisplay.classList.toggle('hide');
+        const playerOneNameDisplayContent = document.getElementById('player-one-name-display').innerText;
+        console.log(`PlayerOneNameDisplay.value: ${playerOneNameDisplayContent}`);
+
+
+        playerTwo = playerFactory(`${formContent}`);
+        console.log(`Player Two: ${playerTwo.name}`);
+        gameBoard.addPlayer(playerTwo);
+
+        if (playerOneNameDisplayContent !== "") { 
+            ticTacToeGrid.classList.remove('cover');
+            ticTacToeGrid.classList.remove('phase-out');
+            displayController.displayPlayerTurn();
+        }
+    });
+
     topLeft.addEventListener('click', () => {
         if (gameBoard.grabElement(0) == " ") {
             gameBoard.setElement(0, gameBoard.getPlayerTurn());
@@ -88,6 +204,8 @@ const displayController = (() => {
             } else if (gameBoard.getPlayerTurn() == "O") {
                 gameBoard.setPlayerTurn(1);
             }
+
+            displayController.displayPlayerTurn();
             
         }
         
@@ -109,7 +227,8 @@ const displayController = (() => {
             } else if (gameBoard.getPlayerTurn() == "O") {
                 gameBoard.setPlayerTurn(1);
             }
-            
+
+            displayController.displayPlayerTurn();
         }
     });
 
@@ -129,25 +248,16 @@ const displayController = (() => {
 
     return {
         displayBoard,
+        displayPlayerTurn,
     };
+
 })();
 
 const playerFactory = (name) => {
     return { name };
 };
 
-playerOne = playerFactory('Trey');
-gameBoard.addPlayer(playerOne);
-playerTwo = playerFactory('Trey-2');
-gameBoard.addPlayer(playerTwo);
-
-
-
-console.log(playerOne.name);
-
 console.log(displayController.displayBoard());
-
-
 
 
 

@@ -2,7 +2,15 @@
 	"folders": [
 		{
 			"path": "."
+		},
+		{
+			"path": "../TheOdinProject-JavaScript-Library-App"
+		},
+		{
+			"path": "../TheOdinProject-JavaScript-GUICalculator-2"
 		}
 	],
-	"settings": {}
+	"settings": {
+		"liveServer.settings.multiRootWorkspaceName": "TOP-FSJS-TicTacToe"
+	}
 }
