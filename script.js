@@ -3,6 +3,64 @@ const gameBoard = (() => {
     const playerList = []
     const max = 1;
     let playerTurn = 1;
+    // use non-arrow function to deliniate between public and private function
+    function winnerLogic() {
+
+        // Check if playerOne won
+
+        if ((grabElement(0) && grabElement(1) && grabElement(2) == "X")) {
+            playerOne.hasWon = true;
+            return ["top-left", "top-middle", "top-right"];
+        } else if (grabElement(3) && grabElement(4) && grabElement(5) == "X") {
+            playerOne.hasWon = true;
+            return ["middle-left", "middle-middle", "middle-right"];
+        } else if (grabElement(6) && grabElement(7) && grabElement(8) == "X") {
+            playerOne.hasWon = true;
+            return ["bottom-left", "bottom-bottom", "bottom-right"];
+        } else if (grabElement(0) && grabElement(3) && grabElement(6) == "X") {
+            playerOne.hasWon = true;
+            return ["top-left", "middle-left", "bottom-left"];
+        } else if (grabElement(1) && grabElement(4) && grabElement(7) == "X") {
+            playerOne.hasWon = true;
+            return ["top-middle", "middle-middle", "bottom-right"];
+        } else if (grabElement(2) && grabElement(5) && grabElement(8) == "X") {
+            playerOne.hasWon = true;
+            return ["top-right", "middle-right", "bottom-right"];
+        } else if (grabElement(0) && grabElement(4) && grabElement(8) == "X") {
+            playerOne.hasWon = true;
+            return ["top-left", "middle-middle", "bottom-right"];
+        } else if (grabElement(2) && grabElement(4) && grabElement(6) == "X") {
+            playerOne.hasWon = true;
+            return ["top-right", "middle-middle", "bottom-left"];
+        }
+        // Check if playerTwo won
+
+        if ((grabElement(0) && grabElement(1) && grabElement(2) == "O")) {
+            playerTwo.hasWon = true;
+            return ["top-left", "top-middle", "top-right"];
+        } else if (grabElement(3) && grabElement(4) && grabElement(5) == "O") {
+            playerTwo.hasWon = true;
+            return ["middle-left", "middle-middle", "middle-right"];
+        } else if (grabElement(6) && grabElement(7) && grabElement(8) == "O") {
+            playerTwo.hasWon = true;
+            return ["bottom-left", "bottom-bottom", "bottom-right"];
+        } else if (grabElement(0) && grabElement(3) && grabElement(6) == "O") {
+            playerTwo.hasWon = true;
+            return ["top-left", "middle-left", "bottom-left"];
+        } else if (grabElement(1) && grabElement(4) && grabElement(7) == "O") {
+            playerTwo.hasWon = true;
+            return ["top-middle", "middle-middle", "bottom-right"];
+        } else if (grabElement(2) && grabElement(5) && grabElement(8) == "O") {
+            playerTwo.hasWon = true;
+            return ["top-right", "middle-right", "bottom-right"];
+        } else if (grabElement(0) && grabElement(4) && grabElement(8) == "O") {
+            playerTwo.hasWon = true;
+            return ["top-left", "middle-middle", "bottom-right"];
+        } else if (grabElement(2) && grabElement(4) && grabElement(6) == "O") {
+            playerTwo.hasWon = true;
+            return ["top-right", "middle-middle", "bottom-left"];
+        }
+    }
 
     const grabBoard = () => {
         return board;
@@ -41,6 +99,26 @@ const gameBoard = (() => {
         playerList.push(player);
     }
 
+    const checkForWinner = () => {
+        if (winnerLogic() !== undefined) {
+            winningPositions = winnerLogic();
+            displayController.displayWinner(winningPositions[0], winningPositions[1], winningPositions[2]);
+        }
+    }
+
+    const resetPlayers = () => {
+        playerList = [];
+    }
+
+    const resetGame = () => {
+
+        // clear and reset board elements
+        for (const [index, element] of grabBoard().entries()) {
+            setElement(index, " ")
+        }
+    }
+
+
     return {
         grabBoard,
         grabElement,
@@ -49,6 +127,10 @@ const gameBoard = (() => {
         setPlayerTurn,
         getPlayerList,
         addPlayer,
+        checkForWinner,
+        resetPlayers,
+        resetGame,
+
     };
 })();
 
@@ -115,6 +197,112 @@ const displayController = (() => {
         }
         
     }
+
+    const displayWinner = (winningPosition1, winningPosition2, winningPosition3) => {
+        const playerTurnDisplay = document.getElementById('player-turn-display');
+
+        const placeholder = document.querySelector(`#player-turn-display-content`);
+        const content = document.createElement('h2');
+
+        const firstPosition = document.getElementById(`${winningPosition1}`)
+        const secondPosition = document.getElementById(`${winningPosition2}`)
+        const thirdPosition = document.getElementById(`${winningPosition3}`)
+
+        firstPosition.classList.add('')
+
+        // remove original placeholder if hasn't been removed already
+        if (placeholder !== null) {
+            placeholder.remove();
+        }
+
+        // remove previous player turn display if exists
+        if (playerTurnDisplay.lastElementChild !== null) {
+            playerTurnDisplay.lastElementChild.remove();
+        }
+
+        // Confirm who won
+        if (gameBoard.getPlayerList()[0].hasWon) {
+            content.textContent = `${playerOne.name} Wins!`
+
+            content.classList.remove('player-one');
+            content.classList.remove('player-two');
+
+            content.classList.add('player-one');
+
+            firstPosition.classList.add('.player-one-winning-tile')
+            secondPosition.classList.add('.player-one-winning-tile')
+            thirdPosition.classList.add('.player-one-winning-tile')
+
+            playerTurnDisplay.appendChild(content);
+
+            const ticTacToeGrid = document.getElementById('tictactoe-container');
+
+            ticTacToeGrid.classList.add('cover');
+            ticTacToeGrid.classList.add('phase-out');
+
+            displayPlayAgain();
+            displayResetPlayers();
+
+
+        } else if (gameBoard.getPlayerList()[1].hasWon) {
+            content.textContent = `${playerTwo.name} Wins!`
+
+            content.classList.remove('player-one');
+            content.classList.remove('player-two');
+
+            content.classList.add('player-two')
+
+            firstPosition.classList.add('.player-two-winning-tile')
+            secondPosition.classList.add('.player-two-winning-tile')
+            thirdPosition.classList.add('.player-Two-winning-tile')
+
+
+            playerTurnDisplay.appendChild(content);
+
+            const ticTacToeGrid = document.getElementById('tictactoe-container');
+
+            ticTacToeGrid.classList.add('cover');
+            ticTacToeGrid.classList.add('phase-out');
+
+            displayPlayAgain();
+            displayResetPlayers();
+
+        }
+    }
+
+    const displayPlayAgain = () => {
+
+        const playAgainButton = document.getElementById('play-again-button');
+        playAgainButton.classList.toggle('hide');
+        playAgainButton.addEventListener('click', () => {
+            gameBoard.resetGame();
+            displayController.displayBoard();
+
+        })
+    }
+
+    const displayResetPlayers = () => {
+        const resetPlayersButton = document.getElementById('reset-players-button');
+        resetPlayersButton.classList.toggle('hide');
+        resetPlayersButton.addEventListener('click', () => {
+            // reset board interactivity
+            ticTacToeGrid.classList.add('cover');
+            ticTacToeGrid.classList.add('phase-out');
+    
+            // reset players
+    
+                playerOneHeader.classList.toggle('hide');
+                playerOneInput.classList.toggle('hide');
+                playerOneSubmit.classList.toggle('hide');
+    
+                playerTwoHeader.classList.toggle('hide');
+                playerTwoInput.classList.toggle('hide');
+                playerTwoSubmit.classList.toggle('hide');
+            
+                gameBoard.resetPlayers();
+        });
+        
+    }
     const playerOneHeader = document.getElementById('player-one-header');
     const playerOneInput = document.getElementById('player-one-name');
     const playerOneSubmit = document.getElementById('submit-player-one-name');
@@ -152,7 +340,7 @@ const displayController = (() => {
         console.log(`playerTwoNameDisplayContent: ${playerTwoNameDisplayContent}`);
  
         playerOne = playerFactory(`${formContent}`)
-        console.log(`Player One: ${playerOne.name}`) 
+        console.log(`Player One: ${playerOne.name}, Has Won: ${playerOne.hasWon}`) 
         gameBoard.addPlayer(playerOne);
 
         if (playerTwoNameDisplayContent !== "") { 
@@ -232,29 +420,173 @@ const displayController = (() => {
         }
     });
 
-    topRight.addEventListener('click', () => {});
+    topRight.addEventListener('click', () => {
+        if (gameBoard.grabElement(2) == " ") {
+            gameBoard.setElement(2, gameBoard.getPlayerTurn());
+            const originalMarker = document.querySelector(`.index2`);
+            console.log(originalMarker);
+            originalMarker.remove();
+            const marker = document.createElement('pre');
+            marker.textContent = `${gameBoard.grabElement(2)}`;
+            topRight.appendChild(marker);
 
-    middleLeft.addEventListener('click', () => {});
+            // switch player
+            if (gameBoard.getPlayerTurn() == "X") {
+                gameBoard.setPlayerTurn(2);
+            } else if (gameBoard.getPlayerTurn() == "O") {
+                gameBoard.setPlayerTurn(1);
+            }
 
-    middleMiddle.addEventListener('click', () => {});
+            displayController.displayPlayerTurn();
+            
+        }
+        
+    });
 
-    middleRight.addEventListener('click', () => {});
+    middleLeft.addEventListener('click', () => {
+        if (gameBoard.grabElement(3) == " ") {
+            gameBoard.setElement(3, gameBoard.getPlayerTurn());
+            const originalMarker = document.querySelector(`.index3`);
+            console.log(originalMarker);
+            originalMarker.remove();
+            const marker = document.createElement('pre');
+            marker.textContent = `${gameBoard.grabElement(3)}`;
+            middleLeft.appendChild(marker);
 
-    bottomLeft.addEventListener('click', () => {});
+            // switch player
+            if (gameBoard.getPlayerTurn() == "X") {
+                gameBoard.setPlayerTurn(2);
+            } else if (gameBoard.getPlayerTurn() == "O") {
+                gameBoard.setPlayerTurn(1);
+            }
 
-    bottomBottom.addEventListener('click', () => {});
+            displayController.displayPlayerTurn();
+            
+        }
+    });
 
-    bottomRight.addEventListener('click', () => {});
+    middleMiddle.addEventListener('click', () => {
+        if (gameBoard.grabElement(4) == " ") {
+            gameBoard.setElement(4, gameBoard.getPlayerTurn());
+            const originalMarker = document.querySelector(`.index4`);
+            console.log(originalMarker);
+            originalMarker.remove();
+            const marker = document.createElement('pre');
+            marker.textContent = `${gameBoard.grabElement(4)}`;
+            middleMiddle.appendChild(marker);
+
+            // switch player
+            if (gameBoard.getPlayerTurn() == "X") {
+                gameBoard.setPlayerTurn(2);
+            } else if (gameBoard.getPlayerTurn() == "O") {
+                gameBoard.setPlayerTurn(1);
+            }
+
+            displayController.displayPlayerTurn();
+            
+        }
+    });
+
+    middleRight.addEventListener('click', () => {
+        if (gameBoard.grabElement(5) == " ") {
+            gameBoard.setElement(5, gameBoard.getPlayerTurn());
+            const originalMarker = document.querySelector(`.index5`);
+            console.log(originalMarker);
+            originalMarker.remove();
+            const marker = document.createElement('pre');
+            marker.textContent = `${gameBoard.grabElement(5)}`;
+            middleRight.appendChild(marker);
+
+            // switch player
+            if (gameBoard.getPlayerTurn() == "X") {
+                gameBoard.setPlayerTurn(2);
+            } else if (gameBoard.getPlayerTurn() == "O") {
+                gameBoard.setPlayerTurn(1);
+            }
+
+            displayController.displayPlayerTurn();
+            
+        }
+    });
+
+    bottomLeft.addEventListener('click', () => {
+        if (gameBoard.grabElement(6) == " ") {
+            gameBoard.setElement(6, gameBoard.getPlayerTurn());
+            const originalMarker = document.querySelector(`.index6`);
+            console.log(originalMarker);
+            originalMarker.remove();
+            const marker = document.createElement('pre');
+            marker.textContent = `${gameBoard.grabElement(6)}`;
+            bottomLeft.appendChild(marker);
+
+            // switch player
+            if (gameBoard.getPlayerTurn() == "X") {
+                gameBoard.setPlayerTurn(6);
+            } else if (gameBoard.getPlayerTurn() == "O") {
+                gameBoard.setPlayerTurn(6);
+            }
+
+            displayController.displayPlayerTurn();
+            
+        }
+    });
+
+    bottomBottom.addEventListener('click', () => {
+        if (gameBoard.grabElement(7) == " ") {
+            gameBoard.setElement(7, gameBoard.getPlayerTurn());
+            const originalMarker = document.querySelector(`.index7`);
+            console.log(originalMarker);
+            originalMarker.remove();
+            const marker = document.createElement('pre');
+            marker.textContent = `${gameBoard.grabElement(7)}`;
+            bottomBottom.appendChild(marker);
+
+            // switch player
+            if (gameBoard.getPlayerTurn() == "X") {
+                gameBoard.setPlayerTurn(2);
+            } else if (gameBoard.getPlayerTurn() == "O") {
+                gameBoard.setPlayerTurn(1);
+            }
+
+            displayController.displayPlayerTurn();
+            
+        }
+    });
+
+    bottomRight.addEventListener('click', () => {
+        if (gameBoard.grabElement(8) == " ") {
+            gameBoard.setElement(8, gameBoard.getPlayerTurn());
+            const originalMarker = document.querySelector(`.index8`);
+            console.log(originalMarker);
+            originalMarker.remove();
+            const marker = document.createElement('pre');
+            marker.textContent = `${gameBoard.grabElement(8)}`;
+            bottomRight.appendChild(marker);
+
+            // switch player
+            if (gameBoard.getPlayerTurn() == "X") {
+                gameBoard.setPlayerTurn(2);
+            } else if (gameBoard.getPlayerTurn() == "O") {
+                gameBoard.setPlayerTurn(1);
+            }
+
+            displayController.displayPlayerTurn();
+            
+        }
+    });
 
     return {
         displayBoard,
         displayPlayerTurn,
+        displayWinner,
+        displayPlayAgain,
     };
 
 })();
 
 const playerFactory = (name) => {
-    return { name };
+    const hasWon = false;
+    return { name, hasWon };
 };
 
 console.log(displayController.displayBoard());

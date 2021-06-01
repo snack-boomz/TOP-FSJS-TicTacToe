@@ -204,3 +204,11 @@ button .fa-play {
 .hide {
     display: none;
 }
+
+.player-one-winning-tile {
+    background: #ed9121;
+}
+
+.player-two-winning-tile {
+    background: forestgreen;
+}
