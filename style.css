@@ -184,6 +184,16 @@ button .fa-play {
     height: 35px;
 }
 
+#player-one-marker {
+    font-size: 72px;
+    padding: 32px;
+}
+
+#player-two-marker {
+    font-size: 72px;
+    padding: 32px;
+}
+
 .player-one {
     color: #ed9121;
     font-size: 36px;
@@ -206,9 +216,10 @@ button .fa-play {
 }
 
 .player-one-winning-tile {
-    background: #ed9121;
+    background: #ed9121 !important;
 }
 
 .player-two-winning-tile {
-    background: forestgreen;
+    background: forestgreen !important;
 }
+
